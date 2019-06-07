@@ -1,0 +1,3 @@
+JPype1==0.6.3
+numpy==1.16.4
+citlab-python-util @ git+https://github.com/CITlabRostock/citlab-python-util.git@master#egg=citlab-python-util
