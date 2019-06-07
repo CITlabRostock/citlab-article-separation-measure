@@ -309,8 +309,8 @@ def run_eval(truth_file, reco_file, min_tol, max_tol, threshold_tf, java_code=Tr
             recall = recall / len(page_articles_truth)
             as_recall_sum += recall
             # F value
-            f_measure = util.f_measure(precision, recall)
-            as_f_measure_sum += f_measure
+            f_measure_all = util.f_measure(precision, recall)
+            as_f_measure_sum += f_measure_all
 
             #####
             # 2) With article weighting (based on baseline percentage portion of truth/hypo); independent alignment
@@ -339,7 +339,7 @@ def run_eval(truth_file, reco_file, min_tol, max_tol, threshold_tf, java_code=Tr
 
             # Output
             print("{:>16s} {:>10.4f} {:>10.4f} {:>10.4f}  {}  {}".
-                  format("as ind", precision, recall, f_measure,
+                  format("as ind", precision, recall, f_measure_all,
                          list_truth_fixed[page_index], list_reco_fixed[page_index]))
             print("{:>16s} {:>10.4f} {:>10.4f} {:>10.4f}  {}  {}".
                   format("as weighted, ind", precision_weighted, recall_weighted, f_measure_weighted,
