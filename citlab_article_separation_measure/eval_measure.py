@@ -52,7 +52,7 @@ class BaselineMeasureEval(object):
             for poly in polys_reco:
                 polys_reco_java.append(jpype.java.awt.Polygon(poly.x_points, poly.y_points, poly.n_points))
 
-            java_object = jpype.JPackage("util.Java_Util").JavaClass()
+            java_object = jpype.JPackage("citlab_article_separation_measure.external.java").Util()
 
             pr_list = \
                 java_object.calcMetricForPageBaseLinePolys(polys_truth_java, polys_reco_java,
@@ -212,7 +212,7 @@ class BaselineMeasureEval(object):
         poly_to_count_bb = poly_to_count.get_bounding_box()
 
         all_inf = True
-        min_dist = np.full((poly_to_count.n_points, ), np.inf)
+        min_dist = np.full((poly_to_count.n_points,), np.inf)
 
         for poly_ref in polys_ref:
             poly_ref_bb = poly_ref.get_bounding_box()
