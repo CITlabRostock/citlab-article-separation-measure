@@ -441,37 +441,14 @@ if __name__ == '__main__':
     # run_eval(flags.truth, flags.reco, min_tol=flags.min_tol, max_tol=flags.max_tol, threshold_tf=flags.threshold_tf,
     #          java_code=flags.java_code)
 
-    # # example with list of PageXml files
-    gt_files_path_list = "./tests/resources/test_run_measure/gt_xml_paths.lst"
-    hy_files_path_list = "./tests/resources/test_run_measure/hy_xml_paths.lst"
+    # example with list of PageXml files
+    # gt_files_path_list = "./tests/resources/test_run_measure/gt_xml_paths.lst"
+    # hy_files_path_list = "./tests/resources/test_run_measure/hy_xml_paths.lst"
 
-    # gt_files_path_list = "./test/resources/newseye_as_test_data/gt_xml_paths.lst"
-    # hy_files_path_list = "./test/resources/newseye_as_test_data/hy_xml_paths.lst"
-
-    # gt_files_path_list = "./test/resources/newseye_as_test_data_onb/gt_xml_paths.lst"
-    # hy_files_path_list = "./test/resources/newseye_as_test_data_onb/hy_xml_paths.lst"
-
-    # gt_files_path_list = "./test/resources/Le_Matin_Set/gt_xml_paths.lst"
-    # hy_files_path_list = "./test/resources/Le_Matin_Set/hy_xml_paths.lst"
+    gt_files_path_list = "/home/basti/Documents/Job_Rostock/NewsEye/data_corrected/aze/paths_xml.lst"
+    hy_files_path_list = "/home/basti/Documents/Job_Rostock/NewsEye/data_corrected_hypo/aze/paths_xml.lst"
 
     run_eval(gt_files_path_list, hy_files_path_list, min_tol=-1, max_tol=-1, threshold_tf=-1, java_code=True)
-
-    # example for the evaluation of one special page
-    # newspaper_site = "19000715_1-0001.xml"
-    # gt_files_path_list = "./test/resources/newseye_as_test_data/xml_files_gt/" + newspaper_site
-    # hy_files_path_list = "./test/resources/newseye_as_test_data/xml_files_hy/" + newspaper_site
-    # run_eval(gt_files_path_list, hy_files_path_list, min_tol=-1, max_tol=-1, threshold_tf=-1, java_code=True)
-
-    # example with txt files (perfect bd)
-    # gt_files_path_list = "./test/resources/perfect_bd_as_test_data/gt_txt_paths.lst"
-    # hy_files_path_list = "./test/resources/perfect_bd_as_test_data/hy_txt_paths.lst"
-    # run_eval(gt_files_path_list, hy_files_path_list, min_tol=-1, max_tol=-1, threshold_tf=-1, java_code=True)
-
-    # example with txt files (imperfect bd)
-    # gt_files_path_list = "./test/resources/imperfect_bd_as_test_data/gt_txt_paths.lst"
-    # hy_files_path_list = "./test/resources/imperfect_bd_as_test_data/hy_txt_paths.lst"
-    # run_eval(gt_files_path_list, hy_files_path_list, min_tol=-1, max_tol=-1, threshold_tf=-1, java_code=True)
-    # # run_eval(gt_files_path_list, hy_files_path_list, min_tol=5, max_tol=25, threshold_tf=-1, java_code=True)
 
     # shut down the java virtual machine
     jpype.shutdownJVM()
