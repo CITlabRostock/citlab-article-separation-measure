@@ -449,10 +449,7 @@ if __name__ == '__main__':
     # gt_files_path_list = "./tests/resources/test_run_measure/xml_files_gt/0033_nzz_18120804_0_0_a1_p1_1.xml"
     # hy_files_path_list = "./tests/resources/test_run_measure/xml_files_hy/0033_nzz_18120804_0_0_a1_p1_1.xml"
 
-    # gt_files_path_list = "/home/basti/Documents/Job_Rostock/NewsEye/data_corrected/aze/paths_xml.lst"
-    # hy_files_path_list = "/home/basti/Documents/Job_Rostock/NewsEye/data_corrected_hypo/aze/paths_xml.lst"
-
-    run_eval(gt_files_path_list, hy_files_path_list, min_tol=-1, max_tol=-1, threshold_tf=-1, java_code=True)
+    # run_eval(gt_files_path_list, hy_files_path_list, min_tol=-1, max_tol=-1, threshold_tf=-1, java_code=True)
 
     # shut down the java virtual machine
     jpype.shutdownJVM()
