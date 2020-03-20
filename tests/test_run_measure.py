@@ -1,13 +1,15 @@
-from unittest import TestCase
+import os
 
+# dummy tests
+os.system("python ./citlab_article_separation_measure/run_measure.py --path_to_gt_xml_lst {} --path_to_hy_xml_lst {}".
+          format("./tests/resources/dummy_examples/xml_paths_gt.lst",
+                 "./tests/resources/dummy_examples/xml_paths_hy.lst"))
 
-class TestRunMeasure(TestCase):
-    def test_greedy_alignment(self):
-        self.fail()
+print("#" * 125)
+print("#" * 125)
+print("#" * 125)
 
-    def test_sum_over_indices(self):
-        self.fail()
-
-    def test_run_eval(self):
-        self.fail()
-
+# real tests
+os.system("python ./citlab_article_separation_measure/run_measure.py --path_to_gt_xml_lst {} --path_to_hy_xml_lst {}".
+          format("./tests/resources/real_examples/xml_paths_gt.lst",
+                 "./tests/resources/real_examples/xml_paths_hy.lst"))

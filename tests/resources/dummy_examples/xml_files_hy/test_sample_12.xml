@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<PcGts xmlns="http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15 http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15/pagecontent.xsd">
+    <Metadata>
+        <Creator>Transkribus</Creator>
+        <Created>2020-03-18T13:49:33.047+01:00</Created>
+        <LastChange>2020-03-18T14:28:57.222+01:00</LastChange>
+        <TranskribusMetadata docId="349006" pageId="13674836" pageNr="1" tsid="25828178" status="IN_PROGRESS" userId="29931" imgUrl="https://files.transkribus.eu/Get?id=FXGMGZAWCKFIPVPAFYXLNBKD&amp;fileType=view" xmlUrl="https://files.transkribus.eu/Get?id=UEWDJYARNETFMOQGFHLSXXLX" imageId="9783045"/>
+    </Metadata>
+    <Page imageFilename="test_sample_1.png" imageWidth="225" imageHeight="225">
+        <ReadingOrder>
+            <OrderedGroup id="ro_1584538169093" caption="Regions reading order">
+                <RegionRefIndexed index="0" regionRef="TextRegion_1584536045180_123"/>
+                <RegionRefIndexed index="1" regionRef="TextRegion_1584536057335_128"/>
+                <RegionRefIndexed index="2" regionRef="TextRegion_1584536057323_127"/>
+            </OrderedGroup>
+        </ReadingOrder>
+        <TextRegion id="TextRegion_1584536045180_123" custom="readingOrder {index:0;}">
+            <Coords points="4,3 220,3 220,68 4,68"/>
+            <TextLine id="line_1584535934168_65" custom="readingOrder {index:0;} structure {id:a9; type:article;}">
+                <Coords points="27,7 195,8 196,38 26,38"/>
+                <Baseline points="26,33 196,33"/>
+                <TextEquiv>
+                    <Unicode>Das</Unicode>
+                </TextEquiv>
+            </TextLine>
+            <TextLine id="line_1584535939226_70" custom="readingOrder {index:1;} structure {id:a9; type:article;}">
+                <Coords points="26,15 193,13 194,63 27,65"/>
+                <Baseline points="27,60 194,58"/>
+                <TextEquiv>
+                    <Unicode>ist</Unicode>
+                </TextEquiv>
+            </TextLine>
+            <TextEquiv>
+                <Unicode>Das
+ist</Unicode>
+            </TextEquiv>
+        </TextRegion>
+        <TextRegion id="TextRegion_1584536057335_128" custom="readingOrder {index:1;}">
+            <Coords points="4,72 220,72 220,100 4,100"/>
+            <TextLine id="line_1584535942389_75" custom="readingOrder {index:0;} structure {id:a9; type:article;}">
+                <Coords points="30,90 189,88 191,117 30,119"/>
+                <Baseline points="30,93 191,91"/>
+                <TextEquiv>
+                    <Unicode>bloß</Unicode>
+                </TextEquiv>
+            </TextLine>
+            <TextEquiv>
+                <Unicode>bloß</Unicode>
+            </TextEquiv>
+        </TextRegion>
+        <TextRegion id="TextRegion_1584536057323_127" custom="readingOrder {index:2;}">
+            <Coords points="4,107 220,106 220,220 4,220"/>
+            <TextLine id="line_1584537027664_166" custom="readingOrder {index:0;} structure {id:a3; type:article;}">
+                <Coords points="33,76 195,78 194,128 32,126"/>
+                <Baseline points="32,121 194,123"/>
+                <TextEquiv>
+                    <Unicode>ein</Unicode>
+                </TextEquiv>
+            </TextLine>
+            <TextLine id="line_1584537030715_171" custom="readingOrder {index:1;} structure {id:a3; type:article;}">
+                <Coords points="32,98 189,97 189,147 32,148"/>
+                <Baseline points="32,143 189,142"/>
+                <TextEquiv>
+                    <Unicode>kleiner</Unicode>
+                </TextEquiv>
+            </TextLine>
+            <TextLine id="line_1584535973352_101" custom="readingOrder {index:2;} structure {id:a5; type:article;}">
+                <Coords points="29,130 202,130 201,164 29,166"/>
+                <Baseline points="29,161 201,159"/>
+                <TextEquiv>
+                    <Unicode>Test</Unicode>
+                </TextEquiv>
+            </TextLine>
+            <TextLine id="line_1584535970555_96" custom="readingOrder {index:3;} structure {id:a5; type:article;}">
+                <Coords points="29,144 202,143 202,193 29,194"/>
+                <Baseline points="29,189 202,188"/>
+                <TextEquiv>
+                    <Unicode>fürs</Unicode>
+                </TextEquiv>
+            </TextLine>
+            <TextLine id="line_1584535967212_91" custom="readingOrder {index:4;} structure {id:a5; type:article;}">
+                <Coords points="29,166 201,165 201,215 29,216"/>
+                <Baseline points="29,211 201,210"/>
+                <TextEquiv>
+                    <Unicode>Measure.</Unicode>
+                </TextEquiv>
+            </TextLine>
+            <TextEquiv>
+                <Unicode>ein
+kleiner
+Test
+fürs
+Measure.</Unicode>
+            </TextEquiv>
+        </TextRegion>
+    </Page>
+</PcGts>
