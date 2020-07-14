@@ -233,31 +233,9 @@ def run_eval(gt_file, hy_file, min_tol=10, max_tol=30, rel_tol=0.25, poly_tick_d
            (as_r_value, as_p_value, as_f_value)
 
 
-if __name__ == "__main__":
-    parser = ArgumentParser()
-    # command-line arguments
-    parser.add_argument('--path_to_gt_xml_lst', type=str, required=True,
-                        help="path to the lst file containing the file paths of the ground truth Page XML's")
-    parser.add_argument('--path_to_hy_xml_lst', type=str, required=True,
-                        help="path to the lst file containing the file paths of the hypotheses Page XML's")
-
-    parser.add_argument('--min_tol', type=int, default=-1,
-                        help="MINIMUM distance tolerance which is not penalized, -1 for dynamic calculation")
-    parser.add_argument('--max_tol', type=int, default=-1,
-                        help="MAXIMUM distance tolerance which is not penalized, -1 for dynamic calculation")
-    parser.add_argument('--rel_tol', type=float, default=0.25,
-                        help="fraction of estimated interline distance as tolerance values")
-    parser.add_argument('--poly_tick_dist', type=int, default=5,
-                        help="desired distance (measured in pixels) of two adjacent pixels in the normed polygons")
-
-    flags = parser.parse_args()
-
-    # list of xml file paths
-    gt_xml_files = [line.rstrip('\n') for line in open(flags.path_to_gt_xml_lst, "r")]
-    hy_xml_files = [line.rstrip('\n') for line in open(flags.path_to_hy_xml_lst, "r")]
-
-    if len(gt_xml_files) != len(hy_xml_files):
-        print("!! Ground truth and hypotheses list must be of the same length !!")
+def run_measure(gt_files, hy_files, min_tol, max_tol, rel_tol, poly_tick_dist):
+    if len(gt_files) != len(hy_files):
+        print(f"Length of GT list ({len(gt_files)}) has to match length of HY list ({len(hy_files)})!")
         exit(1)
 
     # start java virtual machine to be able to execute the java code
@@ -267,16 +245,14 @@ if __name__ == "__main__":
     bd_without_none_average, bd_without_none_counter = [0, 0, 0], 0
     as_average, as_counter = [0, 0, 0], 0
 
-    for i, gt_File in enumerate(gt_xml_files):
-        hy_File = hy_xml_files[i]
-
+    for i, (gt_file, hy_file) in enumerate(zip(gt_files, hy_files)):
         print("-" * 125)
-        print("Ground truth file: ", gt_File)
-        print("Hypotheses file  : ", hy_File, "\n")
+        print("Ground truth file: ", gt_file)
+        print("Hypotheses file  : ", hy_file, "\n")
 
-        tuple_bd, tuple_bd_without_none, tuple_as = run_eval(gt_file=gt_File, hy_file=hy_File,
-                                                             min_tol=flags.min_tol, max_tol=flags.max_tol,
-                                                             rel_tol=flags.rel_tol, poly_tick_dist=flags.poly_tick_dist)
+        tuple_bd, tuple_bd_without_none, tuple_as = run_eval(gt_file=gt_file, hy_file=hy_file,
+                                                             min_tol=min_tol, max_tol=max_tol,
+                                                             rel_tol=rel_tol, poly_tick_dist=poly_tick_dist)
 
         print("{:<50s} {:>10s} {:>10s} {:>10s}".format("Mode", "R-value", "P-value", "F-value"))
 
@@ -322,10 +298,10 @@ if __name__ == "__main__":
         print("{:<50s} {:>10f} {:>10f} {:>10f} {:>25d} {:>10d}".
               format("baseline detection measure - all baselines",
                      1 / bd_counter * bd_average[0], 1 / bd_counter * bd_average[1], 1 / bd_counter * bd_average[2],
-                     bd_counter, len(gt_xml_files)))
+                     bd_counter, len(gt_files)))
     else:
         print("{:<50s} {:>10s} {:>10s} {:>10s} {:>25d} {:>10d}".
-              format("baseline detection measure - all baselines", "-", "-", "-", bd_counter, len(gt_xml_files)))
+              format("baseline detection measure - all baselines", "-", "-", "-", bd_counter, len(gt_files)))
 
     if bd_without_none_counter > 0:
         print("{:<50s} {:>10f} {:>10f} {:>10f} {:>25d} {:>10d}".
@@ -333,20 +309,46 @@ if __name__ == "__main__":
                      1 / bd_without_none_counter * bd_without_none_average[0],
                      1 / bd_without_none_counter * bd_without_none_average[1],
                      1 / bd_without_none_counter * bd_without_none_average[2],
-                     bd_without_none_counter, len(gt_xml_files)))
+                     bd_without_none_counter, len(gt_files)))
     else:
         print("{:<50s} {:>10s} {:>10s} {:>10s} {:>25d} {:>10d}".
               format("baseline detection measure - without none", "-", "-", "-",
-                     bd_without_none_counter, len(gt_xml_files)))
+                     bd_without_none_counter, len(gt_files)))
 
     if as_counter > 0:
         print("{:<50s} {:>10f} {:>10f} {:>10f} {:>25d} {:>10d}".
               format("article / block segmentation measure",
                      1 / as_counter * as_average[0], 1 / as_counter * as_average[1], 1 / as_counter * as_average[2],
-                     as_counter, len(gt_xml_files)))
+                     as_counter, len(gt_files)))
     else:
         print("{:<50s} {:>10s} {:>10s} {:>10s} {:>25d} {:>10d}".
-              format("article / block segmentation measure", "-", "-", "-", as_counter, len(gt_xml_files)))
+              format("article / block segmentation measure", "-", "-", "-", as_counter, len(gt_files)))
 
     # shut down the java virtual machine
     jpype.shutdownJVM()
+
+
+if __name__ == "__main__":
+    parser = ArgumentParser()
+    # command-line arguments
+    parser.add_argument('--path_to_gt_xml_lst', type=str, required=True,
+                        help="path to the lst file containing the file paths of the ground truth Page XML's")
+    parser.add_argument('--path_to_hy_xml_lst', type=str, required=True,
+                        help="path to the lst file containing the file paths of the hypotheses Page XML's")
+
+    parser.add_argument('--min_tol', type=int, default=-1,
+                        help="MINIMUM distance tolerance which is not penalized, -1 for dynamic calculation")
+    parser.add_argument('--max_tol', type=int, default=-1,
+                        help="MAXIMUM distance tolerance which is not penalized, -1 for dynamic calculation")
+    parser.add_argument('--rel_tol', type=float, default=0.25,
+                        help="fraction of estimated interline distance as tolerance values")
+    parser.add_argument('--poly_tick_dist', type=int, default=5,
+                        help="desired distance (measured in pixels) of two adjacent pixels in the normed polygons")
+
+    flags = parser.parse_args()
+
+    # list of xml file paths
+    gt_xml_files = [line.rstrip('\n') for line in open(flags.path_to_gt_xml_lst, "r")]
+    hy_xml_files = [line.rstrip('\n') for line in open(flags.path_to_hy_xml_lst, "r")]
+
+    run_measure(gt_xml_files, hy_xml_files, flags.min_tol, flags.max_tol, flags.rel_tol, flags.poly_tick_dist)
