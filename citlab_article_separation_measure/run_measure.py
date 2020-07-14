@@ -233,7 +233,7 @@ def run_eval(gt_file, hy_file, min_tol=10, max_tol=30, rel_tol=0.25, poly_tick_d
            (as_r_value, as_p_value, as_f_value)
 
 
-def run_measure(gt_files, hy_files, min_tol, max_tol, rel_tol, poly_tick_dist):
+def run_measure(gt_files, hy_files, min_tol, max_tol, rel_tol, poly_tick_dist, verbose=True):
     if len(gt_files) != len(hy_files):
         print(f"Length of GT list ({len(gt_files)}) has to match length of HY list ({len(hy_files)})!")
         exit(1)
@@ -245,48 +245,67 @@ def run_measure(gt_files, hy_files, min_tol, max_tol, rel_tol, poly_tick_dist):
     bd_without_none_average, bd_without_none_counter = [0, 0, 0], 0
     as_average, as_counter = [0, 0, 0], 0
 
-    for i, (gt_file, hy_file) in enumerate(zip(gt_files, hy_files)):
-        print("-" * 125)
-        print("Ground truth file: ", gt_file)
-        print("Hypotheses file  : ", hy_file, "\n")
+    if verbose:
+        for i, (gt_file, hy_file) in enumerate(zip(gt_files, hy_files)):
+            print("-" * 125)
+            print("Ground truth file: ", gt_file)
+            print("Hypotheses file  : ", hy_file, "\n")
 
-        tuple_bd, tuple_bd_without_none, tuple_as = run_eval(gt_file=gt_file, hy_file=hy_file,
-                                                             min_tol=min_tol, max_tol=max_tol,
-                                                             rel_tol=rel_tol, poly_tick_dist=poly_tick_dist)
+            tuple_bd, tuple_bd_without_none, tuple_as = run_eval(gt_file=gt_file, hy_file=hy_file,
+                                                                 min_tol=min_tol, max_tol=max_tol,
+                                                                 rel_tol=rel_tol, poly_tick_dist=poly_tick_dist)
 
-        print("{:<50s} {:>10s} {:>10s} {:>10s}".format("Mode", "R-value", "P-value", "F-value"))
+            print("{:<50s} {:>10s} {:>10s} {:>10s}".format("Mode", "R-value", "P-value", "F-value"))
 
-        if tuple_bd is not None:
-            print("{:<50s} {:>10f} {:>10f} {:>10f}".
-                  format("baseline detection measure - all baselines", tuple_bd[0], tuple_bd[1], tuple_bd[2]))
+            if tuple_bd is not None:
+                print("{:<50s} {:>10f} {:>10f} {:>10f}".
+                      format("baseline detection measure - all baselines", tuple_bd[0], tuple_bd[1], tuple_bd[2]))
 
-            bd_average = [bd_average[i] + tuple_bd[i] for i in range(len(bd_average))]
-            bd_counter += 1
-        else:
-            print("{:<50s} {:>10s} {:>10s} {:>10s}".
-                  format("baseline detection measure - all baselines", "-", "-", "-"))
+                bd_average = [bd_average[i] + tuple_bd[i] for i in range(len(bd_average))]
+                bd_counter += 1
+            else:
+                print("{:<50s} {:>10s} {:>10s} {:>10s}".
+                      format("baseline detection measure - all baselines", "-", "-", "-"))
 
-        if tuple_bd_without_none is not None:
-            print("{:<50s} {:>10f} {:>10f} {:>10f}".
-                  format("baseline detection measure - without none",
-                         tuple_bd_without_none[0], tuple_bd_without_none[1], tuple_bd_without_none[2]))
+            if tuple_bd_without_none is not None:
+                print("{:<50s} {:>10f} {:>10f} {:>10f}".
+                      format("baseline detection measure - without none",
+                             tuple_bd_without_none[0], tuple_bd_without_none[1], tuple_bd_without_none[2]))
 
-            bd_without_none_average = \
-                [bd_without_none_average[i] + tuple_bd_without_none[i] for i in range(len(bd_without_none_average))]
-            bd_without_none_counter += 1
-        else:
-            print("{:<50s} {:>10s} {:>10s} {:>10s}".
-                  format("baseline detection measure - without none", "-", "-", "-"))
+                bd_without_none_average = \
+                    [bd_without_none_average[i] + tuple_bd_without_none[i] for i in range(len(bd_without_none_average))]
+                bd_without_none_counter += 1
+            else:
+                print("{:<50s} {:>10s} {:>10s} {:>10s}".
+                      format("baseline detection measure - without none", "-", "-", "-"))
 
-        if tuple_as is not None:
-            print("{:<50s} {:>10f} {:>10f} {:>10f}".
-                  format("article / block segmentation measure", tuple_as[0], tuple_as[1], tuple_as[2]))
+            if tuple_as is not None:
+                print("{:<50s} {:>10f} {:>10f} {:>10f}".
+                      format("article / block segmentation measure", tuple_as[0], tuple_as[1], tuple_as[2]))
 
-            as_average = [as_average[i] + tuple_as[i] for i in range(len(as_average))]
-            as_counter += 1
-        else:
-            print("{:<50s} {:>10s} {:>10s} {:>10s}".
-                  format("article / block segmentation measure", "-", "-", "-"))
+                as_average = [as_average[i] + tuple_as[i] for i in range(len(as_average))]
+                as_counter += 1
+            else:
+                print("{:<50s} {:>10s} {:>10s} {:>10s}".
+                      format("article / block segmentation measure", "-", "-", "-"))
+    else:
+        for i, (gt_file, hy_file) in enumerate(zip(gt_files, hy_files)):
+            tuple_bd, tuple_bd_without_none, tuple_as = run_eval(gt_file=gt_file, hy_file=hy_file,
+                                                                 min_tol=min_tol, max_tol=max_tol,
+                                                                 rel_tol=rel_tol, poly_tick_dist=poly_tick_dist)
+
+            if tuple_bd is not None:
+                bd_average = [bd_average[i] + tuple_bd[i] for i in range(len(bd_average))]
+                bd_counter += 1
+
+            if tuple_bd_without_none is not None:
+                bd_without_none_average = \
+                    [bd_without_none_average[i] + tuple_bd_without_none[i] for i in range(len(bd_without_none_average))]
+                bd_without_none_counter += 1
+
+            if tuple_as is not None:
+                as_average = [as_average[i] + tuple_as[i] for i in range(len(as_average))]
+                as_counter += 1
 
     print("-" * 125)
     print("-" * 125)
@@ -344,6 +363,8 @@ if __name__ == "__main__":
                         help="fraction of estimated interline distance as tolerance values")
     parser.add_argument('--poly_tick_dist', type=int, default=5,
                         help="desired distance (measured in pixels) of two adjacent pixels in the normed polygons")
+    parser.add_argument('--verbose', type=bool, default=True,
+                        help="print evaluation for every single file in addition to overall summary")
 
     flags = parser.parse_args()
 
@@ -351,4 +372,5 @@ if __name__ == "__main__":
     gt_xml_files = [line.rstrip('\n') for line in open(flags.path_to_gt_xml_lst, "r")]
     hy_xml_files = [line.rstrip('\n') for line in open(flags.path_to_hy_xml_lst, "r")]
 
-    run_measure(gt_xml_files, hy_xml_files, flags.min_tol, flags.max_tol, flags.rel_tol, flags.poly_tick_dist)
+    run_measure(gt_xml_files, hy_xml_files, flags.min_tol, flags.max_tol, flags.rel_tol,
+                flags.poly_tick_dist, flags.verbose)
