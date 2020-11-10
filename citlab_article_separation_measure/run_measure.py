@@ -2,6 +2,7 @@
 
 import jpype
 import numpy as np
+import os
 from argparse import ArgumentParser
 from citlab_python_util.parser.xml.page.page import Page
 
@@ -371,6 +372,10 @@ if __name__ == "__main__":
     # list of xml file paths
     gt_xml_files = [line.rstrip('\n') for line in open(flags.path_to_gt_xml_lst, "r")]
     hy_xml_files = [line.rstrip('\n') for line in open(flags.path_to_hy_xml_lst, "r")]
+    # filter hy files by gt file (for train, val, test splits)
+    gt_base_names = [os.path.splitext(os.path.basename(file))[0] for file in gt_xml_files]
+    hy_xml_files = list(sorted([file for file in hy_xml_files if any([gt in os.path.basename(file) for gt in gt_base_names])], key=os.path.basename))
+    gt_xml_files = list(sorted(gt_xml_files, key=os.path.basename))
 
     run_measure(gt_xml_files, hy_xml_files, flags.min_tol, flags.max_tol, flags.rel_tol,
                 flags.poly_tick_dist, flags.verbose)
