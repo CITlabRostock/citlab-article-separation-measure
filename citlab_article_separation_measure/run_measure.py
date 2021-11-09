@@ -19,30 +19,21 @@ def get_data_from_pagexml(path_to_pagexml):
     """
     art_polygons_dict = {}
 
-    try:
-        # load the page xml file
-        page_file = Page(path_to_xml=path_to_pagexml)
-        # get all text lines article wise
-        art_txtlines_dict = page_file.get_article_dict()
-    except():
-        print("!! Can not load the lines of the Page XML {} !!\n".format(path_to_pagexml))
-        return art_polygons_dict
+    # load the page xml file
+    page_file = Page(path_to_xml=path_to_pagexml)
+    # get all text lines article wise
+    art_txtlines_dict = page_file.get_article_dict()
 
     for article_id in art_txtlines_dict:
         for txtline in art_txtlines_dict[article_id]:
-            try:
-                # get the baseline of the text line as polygon
-                polygon = txtline.baseline.to_polygon()
-                # skipp baselines with less than two points
-                if len(polygon.x_points) == len(polygon.y_points) > 1:
-                    if article_id in art_polygons_dict:
-                        art_polygons_dict[article_id].append(polygon)
-                    else:
-                        art_polygons_dict.update({article_id: [polygon]})
-            except():
-                print("!! 'NoneType' object with id {} has no attribute 'to_polygon' !!\n".format(txtline.id))
-                continue
-
+            # get the baseline of the text line as polygon
+            polygon = txtline.baseline.to_polygon()
+            # skipp baselines with less than two points
+            if len(polygon.x_points) == len(polygon.y_points) > 1:
+                if article_id in art_polygons_dict:
+                    art_polygons_dict[article_id].append(polygon)
+                else:
+                    art_polygons_dict.update({article_id: [polygon]})
     return art_polygons_dict
 
 
