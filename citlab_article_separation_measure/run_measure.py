@@ -22,7 +22,7 @@ def get_data_from_pagexml(path_to_pagexml):
     # load the page xml file
     page_file = Page(path_to_xml=path_to_pagexml)
     # get all text lines article wise
-    art_txtlines_dict = page_file.get_article_textline_dict()
+    art_txtlines_dict = page_file.get_article_textline_dict(refs_only=False)
 
     for article_id in art_txtlines_dict:
         for txtline in art_txtlines_dict[article_id]:
